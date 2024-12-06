@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignIn</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./css/fontawesome/css/all.css">
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
+        <script src="./jsnew/index.js"></script>
+        <script src="./jsnew/sign.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
+    <script>
+      auth.onAuthStateChanged(function(user){
+        if(user){
+          localStorage.setItem('user',user);
+            // var ref = firebase.database().ref;
+            var email = user.email;
+            console.log('Active user ' + email);
+            window.location = './home.html';
+        } else{
+            console.log('No active use \n Please login');
+        }
+      });
+      // if(localStorage.getItem('user') != null){
+      //   window.location ='./home.html';
+      // }
+    </script>
+    
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: './home.html',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        ],
+        // tosUrl and privacyPolicyUrl accept either url string or a callback
+        // function.
+        // Terms of service url/callback.
+        tosUrl: '<your-tos-url>',
+        // Privacy policy url/callback.
+        privacyPolicyUrl: function() {
+          window.location.assign('<your-privacy-policy-url>');
+        }
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+
+      function back(){
+        window.location = './index.html';
+      }
+    </script>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+      body{
+        font-size: 14px;
+        background-image: linear-gradient(to left,#002144,#46739f);
+        color: #ffbe55;
+      }
+      .container{
+        height: 100vh;
+        width: 100%;
+      }
+      .main{
+        max-width: 100%;
+        width: 300px;
+        padding: 15px;
+        margin: auto;
+      }
+      .head{
+        font-size: 30px;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="col-md-6 col-sm-12">
+          <div class="main pt-5">
+            <h1 class="head pb-5 text-center">Login Here!</h1>
+            <div id="firebaseui-auth-container"></div>
+            <div class="back text-right">
+              <button class="btn btn-secondary" onclick="back();">&lt;&lt; Home</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+</body>
+</html>
